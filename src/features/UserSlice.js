@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from "axios"
+import axios from "axios";
+
 const API_URL = 'http://localhost:3002/users';
 
 const uploadFile = (file) => {
@@ -38,7 +39,7 @@ export const editUser = createAsyncThunk("users/editUser", async({id,updatedUser
 
 export const deleteUser = createAsyncThunk("users/deleteUser",async (id)=>{
     await axios.delete(`${API_URL}/${id}`)
-    return id
+    return id;
 })
 
 const userSlice = createSlice({
@@ -75,6 +76,11 @@ const userSlice = createSlice({
             })
             .addCase(deleteUser.fulfilled, (state,action)=>{
                 state.users = state.users.filter((user) => user.id !== action.payload);
+                state.status = "done"; 
+            })
+            .addCase(deleteUser.rejected, (state, action) => {
+                state.status = "failed";
+                state.error = action.error.message;
             })
     }
 

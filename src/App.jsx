@@ -17,12 +17,15 @@ function App() {
 
   const handleSubmit = (values) => {
     if (editingUser) {
-      dispatch(editUser({ id: editingUser.id, updatedUser: values }));
+        dispatch(editUser({ id: editingUser.id, updatedUser: values }))
+            .then(() => dispatch(fetchUsers()));
     } else {
-      dispatch(addUser(values));
+        dispatch(addUser(values))
+            .then(() => dispatch(fetchUsers()));
     }
     setEditingUser(null);
-  };
+};
+
 
   if (status === "loading") return <div className="text-center mt-5">Loading...</div>;
   if (error) return <div className="text-danger text-center mt-5">Error: {error}</div>;
@@ -35,11 +38,6 @@ function App() {
           element={
             <div className="container mt-4">
               <h1 className="text-center mb-4 text-primary">User Management</h1>
-              <div className="text-center mb-3">
-                <Link to="/add-user" className="btn btn-success">
-                  Add User
-                </Link>
-              </div>
               <div className="card shadow p-3">
                 <UserList
                   users={users}
@@ -55,7 +53,7 @@ function App() {
           path="/add-user"
           element={
             <div className="container mt-4">
-              <h1 className="text-center mb-4 text-primary">Add User</h1>
+              <h1 className="text-center mb-4 text-primary">Add User To Portal</h1>
               <div className="text-center mb-3">
                 <Link to="/" className="btn btn-secondary">
                   Back to User List

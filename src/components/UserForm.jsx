@@ -1,27 +1,30 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import "bootstrap/dist/css/bootstrap.min.css"; // Ensure Bootstrap is imported
+import "bootstrap/dist/css/bootstrap.min.css";
 import PropTypes from 'prop-types';
+import { useNavigate } from "react-router-dom";
 
 function UserForm({ initialValues, onSubmit, buttonText }) {
+  const navigate = useNavigate();
+
   const formik = useFormik({
     initialValues: initialValues || { name: "", email: "", profile_pic: null },
-    enableReinitialize : true ,
+    enableReinitialize: true,
     validationSchema: Yup.object({
       name: Yup.string().required("Name is required"),
-    
       email: Yup.string().email("Invalid email address").required("Email is required"),
       profile_pic: Yup.mixed().nullable(),
     }),
     onSubmit: (values) => {
       onSubmit(values);
       formik.resetForm();
+      navigate("/"); // Redirect to the user list after form submission
     },
   });
 
   return (
     <div className="container mt-4">
-      <h2 className="text-center mb-4">{buttonText} User</h2>
+      <h2 className="text-center mb-4">{buttonText}</h2>
 
       <form onSubmit={formik.handleSubmit} className="p-4 border rounded shadow bg-light">
         {/* Name Field */}
@@ -70,12 +73,13 @@ function UserForm({ initialValues, onSubmit, buttonText }) {
 
         {/* Submit Button */}
         <button type="submit" className="btn btn-primary w-100">
-          {buttonText}
+          {buttonText} 
         </button>
       </form>
     </div>
   );
 }
+
 UserForm.propTypes = {
   initialValues: PropTypes.shape({
     name: PropTypes.string,
