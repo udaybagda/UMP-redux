@@ -13,7 +13,7 @@ function App() {
 
   useEffect(() => {
     dispatch(fetchUsers());
-  }, [dispatch]);
+  }, []);
 
   const handleSubmit = (values) => {
     if (editingUser) {

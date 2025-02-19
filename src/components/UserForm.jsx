@@ -2,13 +2,16 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import "bootstrap/dist/css/bootstrap.min.css";
 import PropTypes from 'prop-types';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 function UserForm({ initialValues, onSubmit, buttonText }) {
   const navigate = useNavigate();
+  const { state } = useLocation(); // Get data from the route state
+  const user = state?.user; // Check if user data is passed
 
+  // Initialize form with existing user data if available
   const formik = useFormik({
-    initialValues: initialValues || { name: "", email: "", profile_pic: null },
+    initialValues: user || initialValues || { name: "", email: "", profile_pic: null },
     enableReinitialize: true,
     validationSchema: Yup.object({
       name: Yup.string().required("Name is required"),

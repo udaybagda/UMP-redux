@@ -2,6 +2,7 @@ import defaultImage from "/default-avatar.png";
 import "bootstrap/dist/css/bootstrap.min.css";
 import PropTypes from "prop-types";
 import { Link, useNavigate } from "react-router-dom";
+import { fetchUsers } from "../features/UserSlice";
 
 function UserList({ users, onEdit, onDelete }) {
   const navigate = useNavigate();
@@ -9,12 +10,13 @@ function UserList({ users, onEdit, onDelete }) {
   // Handle edit user and navigate to the form
   const handleEdit = (user) => {
     onEdit(user);
-    navigate("/add-user");
+    navigate("/add-user",{state: {user}});//pass user data via route state  
   };
 
   const handleDelete = (id) => {
     if (window.confirm("Are you sure you want to delete this user?")) {
         onDelete(id);
+        fetchUsers;
     }
 };
 
