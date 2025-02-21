@@ -21,7 +21,7 @@ function UserForm({ initialValues, onSubmit, buttonText }) {
     onSubmit: (values) => {
       onSubmit(values);
       formik.resetForm();
-      navigate("/"); // Redirect to the user list after form submission
+      navigate("/user-management"); // Redirect to the user list after form submission
     },
   });
 
@@ -77,6 +77,10 @@ function UserForm({ initialValues, onSubmit, buttonText }) {
         {/* Submit Button */}
         <button type="submit" className="btn btn-primary w-100">
           {buttonText} 
+        </button>
+        <br /><br />
+        <button type="submit" className="btn btn-primary w-100" disabled={!formik.dirty || !formik.isValid}>
+          Update User
         </button>
       </form>
     </div>

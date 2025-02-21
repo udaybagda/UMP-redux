@@ -40,7 +40,7 @@ function UserList({ users, onEdit, onDelete }) {
           <tbody>
             {users.length > 0 ? (
               users.map((user, index) => (
-                <tr key={user.id}>
+                <tr key={`user-${index}`}>  {/* Generate Unique key*/}
                   <td>{index + 1}</td>
                   <td>
                     <img

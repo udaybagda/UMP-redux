@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playwrite+IN:wght@100..400&family=Playwrite+VN:wght@100..400&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Silkscreen:wght@400;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'Lato', sans-serif;
+}
+
+/* .outer-box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: azure;
+
+}
+
+.inner-box{
+    width: 300px;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+} */
+
+.outer-box {
+    width: 100vw;
+    height: 100vh;
+    background-color: azure;
+}
+
+.inner-box{
+    width: 400px;
+    margin: 0 auto;
+    position: relative;
+    top: 45%;
+    transform: translateY(-50%);
+    padding: 20px 40px;
+    /* background-color: #ffffffcc; */
+    background: linear-gradient(to top left,#ffffff,#ffffff33);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+.login-header p{
+    font-size: 0.9rem;
+    color: #5e5d5d;
+}
+
+.login-body{
+    margin: 20px 0;
+}
+
+.login-body p{
+    margin: 10px 0;
+}
+
+.login-body p label{
+    display: block;
+    /* font-weight: bold; */
+}
+
+.login-body p input:not(#password),
+.password-container input{
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    margin-top: 4px;
+}
+
+#submit{
+    background-color: #3498db;
+    border: none;
+    color: white;
+    cursor: pointer;
+
+}
+
+#submit:hover{
+    background-color: #1b6494;
+}
+
+.login-footer p{
+    color: #555;
+    text-align: center;
+}
+
+.login-footer p a{
+    color: #2773a5;
+}
+
+/* Password container styling */
+.password-container {
+    position: relative;
+    margin-top: 4px;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #666;
+    z-index: 2;
+}
+
+.toggle-password:hover {
+    color: #333;
+}
+
+/* Ensure password input matches other fields */
+#password {
+    padding-right: 35px;
+    border: 2px solid #ccc !important; /* Force same border as other inputs */
+}
+
+.input-error {
+    border: 2px solid red;
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 12px;
+  }
