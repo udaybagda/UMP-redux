@@ -1,3 +1,4 @@
+// LogoutButton.jsx
 import { useNavigate } from "react-router-dom";
 import PropTypes from 'prop-types';
 
@@ -5,9 +6,9 @@ function LogoutButton({ setIsAuthenticated }) {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem("isAuthenticated"); // Remove auth status
-    setIsAuthenticated(false); //update state
-    navigate("/login"); // Redirect to login
+    localStorage.removeItem("isAuthenticated"); // Remove instead of setting to false
+    setIsAuthenticated(false);
+    navigate("/login");
   };
 
   return (
@@ -16,6 +17,7 @@ function LogoutButton({ setIsAuthenticated }) {
     </button>
   );
 }
+
 LogoutButton.propTypes = {
   setIsAuthenticated: PropTypes.func.isRequired,
 };

@@ -21,13 +21,11 @@ export default function Login({ setIsAuthenticated }) {
     }),
     onSubmit: (values) => {
       console.log("hello");
-      
-      const storedUser = localStorage.getItem("user");
+      let storedUser = localStorage.getItem("user");
 
       if (!storedUser) {
         setError("No user found. Please sign up.");
-        console.log("abcd");
-        
+        console.log("abcd"); 
         return;
       }
 
@@ -36,12 +34,10 @@ export default function Login({ setIsAuthenticated }) {
       if (user.email !== values.email || user.password !== values.password) {
         setError("Invalid email or password.");
         console.log("auhfa");
-        
         return;
       }
 
       localStorage.setItem("isAuthenticated", "true"); // Set authentication state
-    
       setIsAuthenticated(true);
       navigate("/user-management"); // Redirect to user management page
       console.log("hello123");

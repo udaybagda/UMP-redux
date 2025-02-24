@@ -29,13 +29,8 @@ function App() {
   );
 
   useEffect(() => {
-    const authStatus = localStorage.getItem("isAuthenticated") === "true";
-    setIsAuthenticated(authStatus);
+    localStorage.setItem("isAuthenticated", isAuthenticated);
   }, [isAuthenticated]);
-
-  // useEffect(() => {
-  //   localStorage.setItem("isAuthenticated", isAuthenticated);
-  // }, [isAuthenticated]);
 
   useEffect(() => {
     dispatch(fetchUsers());
@@ -57,75 +52,67 @@ function App() {
   if (error)
     return <div className="text-danger text-center mt-5">Error: {error}</div>;
 
-  const router = createBrowserRouter(
-    createRoutesFromElements(
-      <>
-        <Route path="/" element={<Navigate to="/login" />} />
-        <Route
-          path="/login"
-          element={<Login setIsAuthenticated={setIsAuthenticated} />}
-        />
-        <Route path="/signup" element={<SignUp />} />
+  // App.js
+// ... other imports remain the same
 
-        <Route
-  path="/user-management"
-  element={
-    isAuthenticated ? (
-      <div className="container mt-4 position-relative">
-        {/* Logout Button */}
-        <LogoutButton setIsAuthenticated={setIsAuthenticated} />
-        <h1 className="text-center mb-4 text-primary">
-          User Management
-        </h1>
-        <div className="card shadow p-3">
-          <UserList
-            users={users}
-            onEdit={setEditingUser}
-            onDelete={(id) => {
-              dispatch(deleteUser(id)).then(() =>
-                dispatch(fetchUsers())
-              );
-            }}
-          />
-        </div>
-      </div>
-    ) : (
-      <Navigate to="/login" />
-    )
-  }
-/>
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <>
+      <Route path="/" element={<Navigate to="/login" />} />
+      <Route
+        path="/login"
+        element={<Login setIsAuthenticated={setIsAuthenticated} />}
+      />
+      <Route path="/signup" element={<SignUp />} />
 
-
-        <Route
-          path="/add-user"
-          element={
-              <ProtectedRoute>
-              <div className="container mt-4 position-relative">
-                {/* Logout Button */}
-                <LogoutButton setIsAuthenticated={setIsAuthenticated} />
-                <h1 className="text-center mb-4 text-primary">
-                  Add User To Portal
-                </h1>
-                <div className="text-center mb-3">
-                  <Link to="/user-management" className="btn btn-secondary">
-                    Back to User List
-                  </Link>
-                </div>
-                <div className="card shadow p-3">
-                  <UserForm
-                    users={users}
-                    initialValues={editingUser || { name: "", email: "" }}
-                    buttonText={editingUser ? "Update User" : "Add User"}
-                    onSubmit={handleSubmit}
-                  />
-                </div>
+      <Route
+        path="/user-management"
+        element={
+          <ProtectedRoute>
+            <div className="container mt-4 position-relative">
+              <LogoutButton setIsAuthenticated={setIsAuthenticated} />
+              <h1 className="text-center mb-4 text-primary">User Management</h1>
+              <div className="card shadow p-3">
+                <UserList
+                  users={users}
+                  onEdit={setEditingUser}
+                  onDelete={(id) => {
+                    dispatch(deleteUser(id)).then(() => dispatch(fetchUsers()));
+                  }}
+                />
               </div>
-              </ProtectedRoute>
-          }
-        />
-      </>
-    )
-  );
+            </div>
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/add-user"
+        element={
+          <ProtectedRoute>
+            <div className="container mt-4 position-relative">
+              <LogoutButton setIsAuthenticated={setIsAuthenticated} />
+              <h1 className="text-center mb-4 text-primary">Add User To Portal</h1>
+              <div className="text-center mb-3">
+                <Link to="/user-management" className="btn btn-secondary">
+                  Back to User List
+                </Link>
+              </div>
+              <div className="card shadow p-3">
+                <UserForm
+                  users={users}
+                  initialValues={editingUser || { name: "", email: "" }}
+                  buttonText={editingUser ? "Update User" : "Add User"}
+                  onSubmit={handleSubmit}
+                />
+              </div>
+            </div>
+          </ProtectedRoute>
+        }
+      />
+    </>
+  )
+);
 
   return <RouterProvider router={router} />;
 }
